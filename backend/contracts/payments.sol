@@ -15,13 +15,13 @@ contract Payments {
         uint8 price;
     }
     
-    function becomeUser() public {
+    function addUser() public {
         // check if the caller is already a registered user
         
         // add caller to the user list
     }
     
-    function becomeProvider() public {
+    function addProvider() public {
         // check if the caller is already a registered provider
         
         // add caller to the provider list
@@ -54,6 +54,6 @@ contract Payments {
         // check if given provider is registered
         // check if given provider offers required service
         
-        // make payment -> substract money from the caller, send money to the provider
+        // make payment -> substract money from caller, send money to the provider
     }
 }
