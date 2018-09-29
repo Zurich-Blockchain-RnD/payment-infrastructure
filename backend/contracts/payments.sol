@@ -50,9 +50,10 @@ contract Payments {
     }
     
     function makePayment(address provider, string service) public payable {
+        // check if the caller is registered user
         // check if given provider is registered
         // check if given provider offers required service
         
-        // make payment -> substract monye from caller, send money to the provider
+        // make payment -> substract money from the caller, send money to the provider
     }
 }
