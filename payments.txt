@@ -1,0 +1,5 @@
+Simple payments system features:
+  - smart contract has a list of providers and services/goods they provide
+  - smart contract has a list of users who can make payments for services/goods
+  - a user can make payments for maximum 10 ethers for services or goods
+  - smart constract can receive payment and then send the money to the service/goods provider
