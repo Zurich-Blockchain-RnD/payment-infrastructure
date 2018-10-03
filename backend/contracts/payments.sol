@@ -1,8 +1,10 @@
 pragma solidity ^0.4.2;
 
 contract Payments {
-    address[] users;
-    Provider[] providers;
+    mapping(address => bool) private users;
+    address[] private usersArray;
+    mapping(string => bool) providers;
+    Provider[] providersArray;
     
     struct Provider {
         address providerAddress;
@@ -17,14 +19,28 @@ contract Payments {
     
     function addUser() public {
         // check if the caller is already a registered user
-        
-        // add caller to the user list
+        if (!users[msg.sender]) {
+            // add caller to the users array and mapping
+            users[msg.sender] = true;
+            usersArray.push(msg.sender);
+        }
     }
     
-    function addProvider() public {
+    function addProvider(string providerName) public {
         // check if the caller is already a registered provider
-        
-        // add caller to the provider list
+        if (!providers[providerName]) {
+            // temporary solution, we need to change declaration to unlimited array
+            Service[] memory services = new Service[](5);
+            // add caller to the providers array and mapping
+            Provider memory newProvider = Provider({
+                providerAddress: msg.sender,
+                name: providerName,
+                services: services
+            });
+            
+            providers[providerName] = true;
+            providersArray.push(newProvider);
+        }
     }
     
     function offerService(string serviceName, uint8 servicePrice) public {
@@ -35,12 +51,16 @@ contract Payments {
         // add service to the list of services of the given provider
     }
     
+    // Originally, we wanted to return an array of structs Provider, but Solidity does NOT support it
+    // we need to come up with solution when the function will return either an array of providers
+    // or at least one particular provider
     function getProviders() public {
         // return a list of registered providers
     }
     
-    function getUsers() public {
+    function getUsers() public view returns (address[]) {
         // return a list of registered users
+        return usersArray;
     }
     
     function getOffers(address provider) public {
