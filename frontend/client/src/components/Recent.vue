@@ -76,4 +76,9 @@ export default {
     background-color: transparent;
     border-color: red;
   }
+  .adr {
+    max-width: 90px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
 </style>
