@@ -10,7 +10,7 @@
     <v-spacer></v-spacer>
     <v-layout>
       <button v-on:click='signIn'>Sign In</button>
-      <button v-on:click='signIn'>Register</button>
+      <button v-on:click='register'>Register</button>
     </v-layout>
   </v-layout>
 </v-container>
@@ -21,6 +21,9 @@
     methods: {
       signIn: function() {
         this.$router.replace('home')
+      },
+      register: function() {
+        this.$router.replace('register')
       }
     }
   }
