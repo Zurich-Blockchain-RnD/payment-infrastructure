@@ -29,7 +29,7 @@
     <v-layout id="buttons" justify-center>
       <button class="wallet_btns">Add Funds</button>
       <button class="wallet_btns">My Profile</button>
-      <button class="pay_btn">Pay</button>
+      <button v-on:click='confirm' class="pay_btn">Pay</button>
     </v-layout>
 
     <recent />
@@ -48,8 +48,13 @@ export default {
   data () {
     return {
       ethAmount: '3.25',
-      chfAmount: '10',
+      chfAmount: '725',
       adr: '0x732D145f57Ca26D1AF36849281BbDAb393Ea0F16'
+    }
+  },
+  methods: {
+    confirm: function() {
+      this.$router.replace('confirm')
     }
   }
 }

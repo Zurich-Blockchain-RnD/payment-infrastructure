@@ -3,6 +3,7 @@ import Router from 'vue-router'
 import Welcome from '@/components/Welcome'
 import Home from '@/components/Home'
 import Register from '@/components/Register'
+import Confirm from '@/components/Confirm'
 
 Vue.use(Router)
 
@@ -22,6 +23,11 @@ export default new Router({
       path: '/register',
       name: Register,
       component: Register
+    },
+    {
+      path: '/confirm',
+      name: Confirm,
+      component: Confirm
     }
   ]
 })
