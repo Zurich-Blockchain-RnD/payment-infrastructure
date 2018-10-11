@@ -1,5 +1,5 @@
 <template>
-  <v-layout>
+  <v-layout justify-center>
    <div class='metamask-info'>
      <p>Metamask: {{ web3.isInjected }}</p>
      <p>Network: {{ web3.networkId }}</p>
@@ -25,4 +25,7 @@
 </script>
 
 <style scoped>
+  .metamask-info {
+    margin-top: 10%;
+  }
 </style>
