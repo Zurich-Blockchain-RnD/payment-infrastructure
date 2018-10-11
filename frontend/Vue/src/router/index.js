@@ -4,6 +4,7 @@ import Welcome from '@/components/Welcome'
 import Home from '@/components/Home'
 import Register from '@/components/Register'
 import Confirm from '@/components/Confirm'
+import MetamaskStats from '@/components/MetamaskStats'
 
 Vue.use(Router)
 
@@ -28,6 +29,11 @@ export default new Router({
       path: '/confirm',
       name: Confirm,
       component: Confirm
+    },
+    {
+      path: '/metamask',
+      name: MetamaskStats,
+      component: MetamaskStats
     }
   ]
 })

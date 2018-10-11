@@ -2,7 +2,6 @@
   <v-app>
     <v-toolbar
       app
-      class="toolbar_header"
       dark
       color="#80CD32"
       extended
@@ -10,7 +9,7 @@
     >
     <v-layout
       justify-center>
-      <p> {{title}} </p>
+      <p class="toolbar_header"> {{title}} </p>
     </v-layout>
     </v-toolbar>
 
@@ -36,7 +35,7 @@ export default {
 </script>
 
 <style>
-  p {
+  .toolbar_header {
     font-size: 30px;
     margin-top: 8%;
   }
