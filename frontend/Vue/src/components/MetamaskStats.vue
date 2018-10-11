@@ -4,7 +4,7 @@
      <p>Metamask: {{ web3.isInjected }}</p>
      <p>Network: {{ web3.networkId }}</p>
      <p>Account: {{ web3.coinbase }}</p>
-     <p>Balance: {{ web3.balance }}</p>
+     <p>Balance: {{ weiToEth(web3.balance)}}</p>
    </div>
 </v-layout>
 </template>
@@ -19,6 +19,12 @@
     computed: {
       web3 () {
         return this.$store.state.web3
+      }
+    },
+    methods: {
+      weiToEth: function(wei) {
+        let result = wei / 1000000000000000000
+        return result
       }
     }
   }

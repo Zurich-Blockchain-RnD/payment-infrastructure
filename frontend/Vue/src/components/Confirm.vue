@@ -29,11 +29,11 @@
                 <b>ETH</b>
               </div>
               <div class="adr">
-                {{adr}}
+                {{web3.coinbase}}
               </div>
             </div>
             <div class="ethamt">
-              <b>{{ethAmount}}</b>
+              <b>{{weiToEth(web3.balance)}}</b>
             </div>
             <div class="chfamt">
               {{chfAmount}} CHF
@@ -60,9 +60,22 @@ export default {
       adr: '0x732D145f57Ca26D1AF36849281BbDAb393Ea0F16'
     }
   },
+  beforeCreate () {
+    console.log('registerWeb3 Action dispatched from metamask-stats.vue')
+    this.$store.dispatch('registerWeb3')
+  },
+  computed: {
+    web3 () {
+      return this.$store.state.web3
+    }
+  },
   methods: {
     home: function() {
       this.$router.replace('home')
+    },
+    weiToEth: function(wei) {
+      let result = wei / 1000000000000000000
+      return result
     }
   }
 }
