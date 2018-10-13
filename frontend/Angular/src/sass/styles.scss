@@ -1,0 +1,18 @@
+/* You can add global styles to this file, and also import other style files */
+@import './variables';
+
+// Set Font Awesome font path
+// https://fontawesome.com/
+$fa-font-path: "~@fortawesome/fontawesome-free-webfonts/webfonts";
+
+// 3rd party libraries
+@import "~bootstrap/scss/bootstrap";
+@import "~@fortawesome/fontawesome-free-webfonts/scss/fontawesome.scss";
+@import "~@fortawesome/fontawesome-free-webfonts/scss/fa-brands.scss";
+@import "~@fortawesome/fontawesome-free-webfonts/scss/fa-regular.scss";
+@import "~@fortawesome/fontawesome-free-webfonts/scss/fa-solid.scss";
+
+
+.list-group-item{
+    border: 1px solid $primary;
+}
