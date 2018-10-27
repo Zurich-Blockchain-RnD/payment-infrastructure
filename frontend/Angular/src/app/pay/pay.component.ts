@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChild, ElementRef, Renderer2 } from '@angular/core';
 import { Router } from '@angular/router';
+import { ContractService } from './contract.service';
 import jsQR from 'jsqr';
 import ethereumRegex from 'ethereum-regex';
 
@@ -10,13 +11,17 @@ import ethereumRegex from 'ethereum-regex';
 })
 export class PayComponent implements OnInit {
   @ViewChild('trigger') public trigger: ElementRef;
+  public fromAccount = '0x024579dbea0432a529227a45eb166e7f9dd4ec2b';
+  public ToAddress;
+  public amount = 1;
   public scandone = false;
-  public address;
+  public outputMessage = 'No QR code with ethereum wallet detected.';
   private videoStream;
   private responsiveWidth: number;
   constructor(
     private renderer: Renderer2,
-    private router: Router
+    private router: Router,
+    private contractService: ContractService
     ) { }
 
   ngOnInit() {
@@ -54,23 +59,25 @@ export class PayComponent implements OnInit {
         canvasElement.hidden = false;
         outputContainer.hidden = false;
 
-        canvasElement.height = this.responsiveWidth;
-        canvasElement.width = this.responsiveWidth;
+        canvasElement.height = this.responsiveWidth / 2;
+        canvasElement.width = this.responsiveWidth / 2;
         canvas.drawImage(video, 0, 0, canvasElement.width, canvasElement.height);
         const imageData = canvas.getImageData(0, 0, canvasElement.width, canvasElement.height);
         const code = jsQR(imageData.data, imageData.width, imageData.height);
         if (code) {
-
           drawLine(code.location.topLeftCorner, code.location.topRightCorner, '#FF3B58');
           drawLine(code.location.topRightCorner, code.location.bottomRightCorner, '#FF3B58');
           drawLine(code.location.bottomRightCorner, code.location.bottomLeftCorner, '#FF3B58');
           drawLine(code.location.bottomLeftCorner, code.location.topLeftCorner, '#FF3B58');
-          outputMessage.hidden = true;
           const clean = code.data.match(ethereumRegex());
-          this.address = clean[0];
-          cancelAnimationFrame(requestAnimationFrame(tick));
-          finishStream(this.videoStream);
-          this.scandone = true;
+          if (clean) {
+            this.ToAddress = clean[0];
+            cancelAnimationFrame(requestAnimationFrame(tick));
+            finishStream(this.videoStream);
+            this.scandone = true;
+          } else {
+            this.outputMessage = 'Please try again with an ethereum wallet QR code';
+          }
         } else {
           outputMessage.hidden = false;
         }
@@ -89,10 +96,13 @@ export class PayComponent implements OnInit {
     });
   }
   public pay() {
+    // needs to do
+    // tslint:disable-next-line:max-line-length
+    // this.contractService.transferEther('0x024579dbea0432a529227a45eb166e7f9dd4ec2b', '0x04138a14fa0747dcfb72ae76307c214d6d2b5d99', this.amount);
     this.renderer.addClass(this.trigger.nativeElement, 'drawn');
     setTimeout(() => {
       this.router.navigateByUrl('/home');
-    }, 2000);
+    }, 4000);
   }
 
 }
