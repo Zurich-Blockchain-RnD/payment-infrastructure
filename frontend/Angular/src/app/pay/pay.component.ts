@@ -13,7 +13,7 @@ export class PayComponent implements OnInit {
   @ViewChild('trigger') public trigger: ElementRef;
   public fromAccount = '0x024579dbea0432a529227a45eb166e7f9dd4ec2b';
   public ToAddress;
-  public amount = 1;
+  public amount = '1';
   public scandone = false;
   public outputMessage = 'No QR code with ethereum wallet detected.';
   private videoStream;
@@ -98,11 +98,13 @@ export class PayComponent implements OnInit {
   public pay() {
     // needs to do
     // tslint:disable-next-line:max-line-length
-    // this.contractService.transferEther('0x024579dbea0432a529227a45eb166e7f9dd4ec2b', '0x04138a14fa0747dcfb72ae76307c214d6d2b5d99', this.amount);
+    this.contractService.transferEther('0x97b42982c05ef556038a5e180f3e788174Da4B95', '0xD83f1519A6849c3e1ae4D0A8aEdDcd278E254465', this.amount);
     this.renderer.addClass(this.trigger.nativeElement, 'drawn');
-    setTimeout(() => {
-      this.router.navigateByUrl('/home');
-    }, 4000);
+    // TODO show the transaction id in the user profile!
+
+    // setTimeout(() => {
+    //   this.router.navigateByUrl('/home');
+    // }, 4000);
   }
 
 }

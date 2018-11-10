@@ -12,16 +12,14 @@ declare let web3: any;
 })
 export class ContractService {
   private web3Provider: null;
-  private contracts: {};
+  private paymentContract;
   constructor() {
-    // if (typeof window.web3 !== 'undefined') {
-    //   this.web3Provider = window.web3.currentProvider;
-    // } else {
-    //   this.web3Provider = new Web3.providers.HttpProvider('http://localhost:8545');
-    // }
+
     this.web3Provider = new Web3.providers.HttpProvider('http://localhost:8545');
     window.web3 = new Web3(this.web3Provider);
     web3 = window.web3;
+    this.paymentContract = new web3.eth.Contract(tokenAbi.abi, '0xb1b8f910c76fdd747dca4ba8dabeee8e7a02b822');
+
   }
   getAccountInfo() {
     return new Promise((resolve, reject) => {
@@ -39,26 +37,13 @@ export class ContractService {
     });
 
   }
-  transferEther(_transferFrom, _transferTo, _amount, _remarks?) {
-    const that = this;
-    return new Promise((resolve, reject) => {
-      const paymentContract = web3.eth.contract(tokenAbi.abi);
-      paymentContract.setProvider(this.web3Provider);
-      paymentContract.deployed().then(function (instance) {
-        return instance.transferFund(
-          _transferTo,
-          {
-            from: _transferFrom,
-            value: web3.toWei(_amount, 'ether')
-          });
-      }).then(function (status) {
-        if (status) {
-          return resolve({ status: true });
-        }
-      }).catch(function (error) {
-        console.log(error);
-        return reject('Error in transferEther service call');
+  async transferEther(_transferFrom: string, _transferTo: string, _amount: string, _remarks?: string) {
+    const res = await this.paymentContract.methods
+      .transferFund(_transferTo)
+      .send({
+        from: _transferFrom,
+        value: web3.utils.toWei(_amount, 'ether')
       });
-    });
+    console.log(res);
   }
 }
